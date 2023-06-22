@@ -92,7 +92,7 @@ function classNames(...classes: any[]) {
 export default function BrandSelectionMenu(props: any) {
   const [selected, setSelected] = useState<any>(brandTypes[0]);
   useEffect(() => {
-    props.setSelectedOption(selected.id);
+    props.setSelectedOption(selected.name);
   }, [selected]);
 
   return (

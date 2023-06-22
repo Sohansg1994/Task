@@ -1,10 +1,11 @@
 import "./App.css";
-import LapList from "./components/organisms/LaptopList/LapList";
+
+import LaptopDataAnalysisLayout from "./components/templates/laptopDataAnaysisLayout/LaptopDataAnalysisLayout";
 
 function App() {
   return (
     <>
-      <LapList />
+      <LaptopDataAnalysisLayout />
     </>
   );
 }

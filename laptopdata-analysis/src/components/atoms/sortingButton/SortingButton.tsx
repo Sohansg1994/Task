@@ -1,20 +1,20 @@
-import React, { useState } from "react";
+import { useEffect, useState } from "react";
 import { GrAscend, GrDescend } from "react-icons/gr";
 
-export default function SortingButton() {
-  const [isAscending, setIsAscending] = useState<boolean>(true);
+export default function SortingButton(props: any) {
+  const [isUp, setIsUp] = useState<boolean>(true);
+
   return (
     <div>
       <button
         type="button"
-        className="text-blue-700 border border-blue-700 hover:bg-blue-700 hover:text-white focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm p-2.5 text-center inline-flex items-center m-2 dark:border-blue-500 dark:text-blue-500 dark:hover:text-white dark:focus:ring-blue-800 dark:hover:bg-blue-500"
+        className="text-gray-500  bg-gray-100 hover:text-gray-700  hover:bg-gray-200  ring-1 ring-inset ring-gray-300 focus:outline-none font-medium rounded-md h-10 text-sm p-3 text-center inline-flex items-center mr-2"
         onClick={() => {
-          setIsAscending(!isAscending);
+          props.handleClick();
+          setIsUp(!isUp);
         }}
       >
-        <span style={{ color: "blue" }}>
-          {isAscending ? <GrAscend size={24} /> : <GrDescend size={24} />}
-        </span>
+        {isUp ? <GrAscend size={20} /> : <GrDescend size={20} />}
       </button>
     </div>
   );
