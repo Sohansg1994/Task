@@ -5,6 +5,7 @@ import SearchBox from "../../atoms/searchBox/SearchBox";
 import DataTable from "../../molecules/dataTable/DataTable";
 import DropButton from "../../atoms/dropButton/DropButton";
 import laptopStore from "../../../store";
+import DataLoadButton from "../../atoms/dataLoadButton/DataLoadButton";
 
 export default function LaptopDataAnalysingTable() {
   const [laptopData, setLaptopData] = useState<any[]>([]);
@@ -59,8 +60,8 @@ export default function LaptopDataAnalysingTable() {
   };
 
   return (
-    <div className="w-screen " style={{ width: "90vw" }}>
-      <div className="border-2 border-gray-300 bg-white mt-3 mb-10 relative  shadow-md sm:rounded-lg">
+    <div className="w-screen grid grid-cols-6 gap-4 " style={{ width: "85vw" }}>
+      <div className="col-start-1 col-span-6 border-2 border-gray-300 bg-white mt-3 mb-10 relative  shadow-md sm:rounded-lg">
         <div className="flex justify-between mt-3 ml-5">
           <div className="flex mr-4">
             <div className=" w-auto h-auto ">
@@ -76,6 +77,9 @@ export default function LaptopDataAnalysingTable() {
             </div>
             <div className="mt-2 ml-3">
               <DropButton setIsOpen={setIsOpen} />
+            </div>
+            <div className="mt-2 ml-3">
+              <DataLoadButton />
             </div>
           </div>
           {/*
@@ -95,7 +99,9 @@ export default function LaptopDataAnalysingTable() {
         )}
       </div>
 
-      <DataTable key={trigger} laptopData={laptopData} />
+      <div className="col-start-1 col-span-6 ">
+        <DataTable key={trigger} laptopData={laptopData} />
+      </div>
     </div>
   );
 }
