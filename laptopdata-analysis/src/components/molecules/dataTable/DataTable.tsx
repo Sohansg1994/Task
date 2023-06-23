@@ -22,15 +22,16 @@ function DataTable(props: any) {
   useEffect(() => {
     setData(props.laptopData);
   }, [props.trigger, props.laptopData]);
+
   return (
     <div className="relative overflow-x-auto shadow-lg sm:rounded-lg">
-      <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+      <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400 ">
         <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
           <tr>
             {headersNames.map((headerName: any, index: number) => (
               <th
                 key={index}
-                className="text-base px-4 py-1"
+                className="text-base px-4 py-1 "
                 style={{ width: "120px" }}
               >
                 {headerName}
@@ -39,9 +40,9 @@ function DataTable(props: any) {
           </tr>
         </thead>
         <tbody>
-          {data.map((laptop: any) => (
+          {data.map((laptop: any, index: number) => (
             <tr
-              key={laptop.laptop_ID}
+              key={`${laptop.laptop_ID}-${index}`}
               className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600"
             >
               <td className="text-sm px-4 py-1" style={{ width: "120px" }}>

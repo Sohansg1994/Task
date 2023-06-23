@@ -3,24 +3,28 @@ import SelectMenu from "../../atoms/selectMenu/SelectMenu";
 import AdvanceSearchBar from "../../molecules/AdvanceSearchBar/AdvanceSearchBar";
 import SearchBox from "../../atoms/searchBox/SearchBox";
 import DataTable from "../../molecules/dataTable/DataTable";
-import DropButton from "../../atoms/dropButton/dropButton";
+import DropButton from "../../atoms/dropButton/DropButton";
+import laptopStore from "../../../store";
 
-export default function LaptopDataAnalysingTable({ data }: any) {
+export default function LaptopDataAnalysingTable() {
   const [laptopData, setLaptopData] = useState<any[]>([]);
-  const [initialData, setInitialData] = useState<any[]>([]);
+
   const [searchValue, setSearchValue] = useState<any>("");
   const [selectedOption, setSelectedOption] = useState<Number>(1);
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [trigger, setTrigger] = useState<boolean>(false);
+  const rawData = laptopStore((state) => state.rawData);
+  const addBrands = laptopStore((state) => state.addBrands);
+  const clearBrandData = laptopStore((state) => state.clearBrandData);
 
   useEffect(() => {
-    setLaptopData(data);
-    setInitialData(data);
+    setLaptopData(rawData);
     const uniqueBrands = [
-      ...new Set(data.map((product: any) => product.Company)),
+      ...new Set(rawData.map((product: any) => product.Company)),
     ];
-    console.log(uniqueBrands);
-  }, [data]);
+    clearBrandData();
+    addBrands(uniqueBrands);
+  }, [rawData]);
 
   useEffect(() => {
     handleFilter(searchValue, selectedOption);
@@ -48,7 +52,7 @@ export default function LaptopDataAnalysingTable({ data }: any) {
       default:
         break;
     }
-    const newData = initialData.filter((laptop: any) => {
+    const newData = rawData.filter((laptop: any) => {
       return laptop[option]?.toLowerCase()?.includes(searchValue.toLowerCase());
     });
     setLaptopData(newData);
@@ -82,7 +86,7 @@ export default function LaptopDataAnalysingTable({ data }: any) {
         </div>
         {isOpen && (
           <AdvanceSearchBar
-            initialData={initialData}
+            initialData={rawData}
             laptopData={laptopData}
             setLaptopData={setLaptopData}
             trigger={trigger}

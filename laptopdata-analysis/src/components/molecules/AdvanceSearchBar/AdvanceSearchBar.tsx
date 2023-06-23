@@ -3,12 +3,14 @@ import BrandSelectionMenu from "../../atoms/brandSelectionMenu/BrandSelectionMen
 import SearchButton from "../../atoms/SearchButton/SearchButton";
 import SortingButton from "../../atoms/sortingButton/SortingButton";
 import PriceBox from "../../atoms/priceBox/PriceBox";
+import laptopStore from "../../../store";
 
 export default function AdvanceSearchBar(props: any) {
   const [selectedOption, setSelectedOption] = useState<string>("");
   const [minPrice, setMinPrice] = useState<number>(0);
   const [maxPrice, setMaxPrice] = useState<number>(0);
   const [isAscending, setIsAscending] = useState<boolean>(true);
+  const rawData = laptopStore((state) => state.rawData);
 
   useEffect(() => {
     console.log(isAscending);
@@ -27,7 +29,7 @@ export default function AdvanceSearchBar(props: any) {
   const handleClick = () => {
     console.log(selectedOption);
     if (selectedOption != "Any") {
-      const newData = props.initialData.filter((laptop: any) => {
+      const newData = rawData.filter((laptop: any) => {
         const laptopPrice = parseInt(laptop.Price_in_euros);
 
         return (
@@ -40,7 +42,7 @@ export default function AdvanceSearchBar(props: any) {
       props.setLaptopData(newData);
       console.log(newData);
     } else if (selectedOption === "Any") {
-      const newData = props.initialData.filter((laptop: any) => {
+      const newData = rawData.filter((laptop: any) => {
         const laptopPrice = parseInt(laptop.Price_in_euros);
 
         return (
@@ -117,7 +119,10 @@ export default function AdvanceSearchBar(props: any) {
       </div>
       <div className="flex items-end w-fit">
         <div>
-          <SortingButton handleClick={handleSortData} />
+          <SortingButton
+            handleClick={handleSortData}
+            isAscending={isAscending}
+          />
         </div>
       </div>
     </div>
