@@ -1,9 +1,12 @@
 import laptopStore from "../../../store";
+import { useState } from "react";
+import DeleteModal from "../../molecules/deleteModal/DeleteModal";
 
 export default function DeleteButton(props: any) {
   const setTableData = laptopStore((state) => state.setTableData);
   const setRawData = laptopStore((state) => state.setRawData);
   const rawData = laptopStore((state) => state.rawData);
+  const [open, setOpen] = useState<boolean>(false);
 
   const handleDelete = (id: any) => {
     const newData = rawData.filter((laptop: any) => laptop.laptop_ID !== id);
@@ -16,7 +19,7 @@ export default function DeleteButton(props: any) {
       <button
         type="button"
         className="text-red-700 hover:text-white border border-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm p-1.5 text-center  dark:border-red-500 dark:text-red-500 dark:hover:text-white dark:hover:bg-red-600 dark:focus:ring-red-900"
-        onClick={() => handleDelete(props.id)}
+        onClick={() => setOpen(true)}
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -33,6 +36,16 @@ export default function DeleteButton(props: any) {
           />
         </svg>
       </button>
+
+      <DeleteModal
+        open={open}
+        onClose={() => {
+          setOpen(false);
+        }}
+        handleDelete={() => {
+          handleDelete(props.id);
+        }}
+      />
     </div>
   );
 }
