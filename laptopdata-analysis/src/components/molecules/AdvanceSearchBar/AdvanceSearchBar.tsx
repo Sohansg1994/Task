@@ -11,10 +11,10 @@ export default function AdvanceSearchBar(props: any) {
   const [maxPrice, setMaxPrice] = useState<number>(0);
   const [isAscending, setIsAscending] = useState<boolean>(true);
   const rawData = laptopStore((state) => state.rawData);
+  const setTableData = laptopStore((state) => state.setTableData);
+  const tableData = laptopStore((state) => state.tableData);
 
-  useEffect(() => {
-    console.log(isAscending);
-  }, [isAscending]);
+  useEffect(() => {}, [isAscending]);
 
   const handleMinValueChange = (event: ChangeEvent<HTMLInputElement>) => {
     const minValue = parseFloat(event.target.value);
@@ -23,11 +23,9 @@ export default function AdvanceSearchBar(props: any) {
   const handleMaxValueChange = (event: ChangeEvent<HTMLInputElement>) => {
     const maxValue = parseFloat(event.target.value);
     setMaxPrice(maxValue);
-    console.log(maxPrice);
   };
 
   const handleClick = () => {
-    console.log(selectedOption);
     if (selectedOption != "Any") {
       const newData = rawData.filter((laptop: any) => {
         const laptopPrice = parseInt(laptop.Price_in_euros);
@@ -39,8 +37,7 @@ export default function AdvanceSearchBar(props: any) {
         );
       });
 
-      props.setLaptopData(newData);
-      console.log(newData);
+      setTableData(newData);
     } else if (selectedOption === "Any") {
       const newData = rawData.filter((laptop: any) => {
         const laptopPrice = parseInt(laptop.Price_in_euros);
@@ -51,15 +48,13 @@ export default function AdvanceSearchBar(props: any) {
           laptop.Company.toLowerCase()
         );
       });
-
-      props.setLaptopData(newData);
-      console.log(newData);
+      setTableData(newData);
     }
   };
 
   const handleSortData = () => {
     if (isAscending) {
-      const newData = props.laptopData.sort((a: any, b: any) => {
+      const newData = tableData.sort((a: any, b: any) => {
         let laptopPriceA = parseInt(a.Price_in_euros);
         let laptopPriceB = parseInt(b.Price_in_euros);
 
@@ -72,11 +67,11 @@ export default function AdvanceSearchBar(props: any) {
         }
       });
 
-      props.setLaptopData(newData);
+      setTableData(newData);
       props.setTrigger(!props.trigger);
       setIsAscending(!isAscending);
     } else {
-      const newData = props.laptopData.sort((a: any, b: any) => {
+      const newData = tableData.sort((a: any, b: any) => {
         let laptopPriceA = parseInt(a.Price_in_euros);
         let laptopPriceB = parseInt(b.Price_in_euros);
 
@@ -89,7 +84,7 @@ export default function AdvanceSearchBar(props: any) {
         }
       });
 
-      props.setLaptopData(newData);
+      setTableData(newData);
       props.setTrigger(!props.trigger);
       setIsAscending(!isAscending);
     }

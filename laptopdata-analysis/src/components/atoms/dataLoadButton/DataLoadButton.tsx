@@ -1,10 +1,11 @@
-import { useState } from "react";
 import laptopStore from "../../../store";
 import * as csvtojson from "csvtojson";
 
 export default function DataLoadButton() {
-  const [isLoaded, setIsLoaded] = useState<boolean>(false);
   const addLaptops = laptopStore((state) => state.addLaptops);
+  const setTableData = laptopStore((state) => state.setTableData);
+  const setIsDataLoaded = laptopStore((state) => state.setIsDataLoaded);
+  const isDataLoaded = laptopStore((state) => state.isDataLoaded);
 
   const fetchCSVData = async () => {
     const response = await fetch("/src/data/laptop_prices.csv");
@@ -12,11 +13,13 @@ export default function DataLoadButton() {
     const jsonObj = await csvtojson().fromString(csvData);
 
     addLaptops(jsonObj);
-    setIsLoaded(true);
+    setTableData(jsonObj);
+
+    setIsDataLoaded(true);
   };
   return (
     <div>
-      {!isLoaded && (
+      {!isDataLoaded && (
         <button
           onClick={fetchCSVData}
           type="button"

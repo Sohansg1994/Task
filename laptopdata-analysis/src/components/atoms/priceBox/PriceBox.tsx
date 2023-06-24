@@ -1,5 +1,5 @@
 // eslint-disable-next-line
-import React from "react";
+
 import { CurrencyEuroIcon } from "@heroicons/react/20/solid";
 
 export default function PriceBox(props: any) {

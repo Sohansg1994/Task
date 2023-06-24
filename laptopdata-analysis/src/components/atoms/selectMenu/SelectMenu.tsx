@@ -1,6 +1,7 @@
 import { Fragment, useEffect, useState } from "react";
 import { Listbox, Transition } from "@headlessui/react";
 import { CheckIcon, ChevronDownIcon } from "@heroicons/react/20/solid";
+import laptopStore from "../../../store";
 
 const selectionTypes = [
   {
@@ -22,7 +23,8 @@ function classNames(...classes: any[]) {
 }
 
 export default function SelectMenu(props: any) {
-  const [selected, setSelected] = useState<any>(selectionTypes[0]);
+  const isDataLoaded = laptopStore((state) => state.isDataLoaded);
+  const [selected, setSelected] = useState<any>(" ");
   useEffect(() => {
     props.setSelected(selected.id);
   }, [selected]);

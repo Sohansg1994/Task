@@ -1,47 +1,44 @@
 import { useEffect, useState } from "react";
 import PaginationBar from "../../atoms/paginationBar/PaginationBar";
+import DeleteButton from "../../atoms/deleteButton/DeleteButton";
+import EditButton from "../../atoms/editButton/EditButton";
+import laptopStore from "../../../store";
 
 const headersNames = [
   "ID",
   "Brand",
   "Product",
   "Type",
-  "Screen Size",
-  "	Screen Resolution",
-  "Processor",
-  "Memory",
-  "Internal Storage",
-  "Graphics",
-  " OS",
-  "	Weight",
-  "Price (Euros)",
+  "Features",
+  "Price",
+  "Action",
 ];
 
 function DataTable(props: any) {
-  const [data, setData] = useState<any>([]);
   const [records, setRecords] = useState<any>([]);
 
-  useEffect(() => {
-    setData(props.laptopData);
-    console.log("here");
-  }, [props.trigger, props.laptopData]);
+  useEffect(() => {}, [props.trigger]);
 
   return (
     <>
-      <div className="relative overflow-x-auto shadow-lg sm:rounded-lg ">
+      <div className="relative overflow-x-auto shadow-2xl sm:rounded-lg ">
         <div className="py-4 flex justify-end ">
-          <PaginationBar data={data} setRecords={setRecords} />
+          <PaginationBar setRecords={setRecords} />
         </div>
-        <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400 ">
-          <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+        <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400 pl-5 ">
+          <thead className="text-xs text-gray-700 uppercase bg-gray-100 dark:bg-gray-700 dark:text-gray-400 ">
             <tr>
               {headersNames.map((headerName: any, index: number) => (
                 <th
                   key={index}
-                  className="text-base px-4 py-1 "
+                  className={
+                    index == 4 || index == 6
+                      ? "text-base px-4 py-3 text-center"
+                      : "text-base px-4 py-3 "
+                  }
                   style={{ width: "120px" }}
                 >
-                  {headerName}
+                  {index == 5 ? `${headerName} (€)` : `${headerName}`}
                 </th>
               ))}
             </tr>
@@ -66,32 +63,103 @@ function DataTable(props: any) {
                 <td className="text-sm px-4 py-1" style={{ width: "120px" }}>
                   {laptop.TypeName}
                 </td>
-                <td className="text-sm px-4 py-1" style={{ width: "120px" }}>
-                  {laptop.Inches}
+                <td className="text-sm px-4 py-1" style={{ width: "800px" }}>
+                  <div className="grid max-w-screen-md px-2 py-5 mx-auto text-gray-900 dark:text-white sm:grid-cols-2 md:grid-cols-4 md:px-6">
+                    <ul style={{ width: "120px" }}>
+                      <li>
+                        <a className="block p-3 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700">
+                          <div className="font-semibold">Screen Size</div>
+                          <span className="text-sm text-gray-500 dark:text-gray-400">
+                            {laptop.Inches}
+                          </span>
+                        </a>
+                      </li>
+                      <li>
+                        <a
+                          href="#"
+                          className="block p-3 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700"
+                        >
+                          <div className="font-semibold">Screen Resolution</div>
+                          <span className="text-sm text-gray-500 dark:text-gray-400">
+                            {laptop.ScreenResolution}
+                          </span>
+                        </a>
+                      </li>
+                    </ul>
+                    <ul style={{ width: "120px" }}>
+                      <li>
+                        <a className="block p-3 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700">
+                          <div className="font-semibold">Graphic</div>
+                          <span className="text-sm text-gray-500 dark:text-gray-400">
+                            {laptop.Gpu}
+                          </span>
+                        </a>
+                      </li>
+                      <li>
+                        <a
+                          href="#"
+                          className="block p-3 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700"
+                        >
+                          <div className="font-semibold">Processor</div>
+                          <span className="text-sm text-gray-500 dark:text-gray-400">
+                            {laptop.Cpu}
+                          </span>
+                        </a>
+                      </li>
+                    </ul>
+                    <ul style={{ width: "120px" }}>
+                      <li>
+                        <a className="block p-3 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700">
+                          <div className="font-semibold">Memory</div>
+                          <span className="text-sm text-gray-500 dark:text-gray-400">
+                            {laptop.Ram}
+                          </span>
+                        </a>
+                      </li>
+                      <li>
+                        <a
+                          href="#"
+                          className="block p-3 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700"
+                        >
+                          <div className="font-semibold">Intenal Storage</div>
+                          <span className="text-sm text-gray-500 dark:text-gray-400">
+                            {laptop.Memory}
+                          </span>
+                        </a>
+                      </li>
+                    </ul>
+                    <ul style={{ width: "120px" }}>
+                      <li>
+                        <a className="block p-3 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700">
+                          <div className="font-semibold">OS</div>
+                          <span className="text-sm text-gray-500 dark:text-gray-400">
+                            {laptop.OpSys}
+                          </span>
+                        </a>
+                      </li>
+                      <li>
+                        <a
+                          href="#"
+                          className="block p-3 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700"
+                        >
+                          <div className="font-semibold">Weight</div>
+                          <span className="text-sm text-gray-500 dark:text-gray-400">
+                            {laptop.Weight}
+                          </span>
+                        </a>
+                      </li>
+                    </ul>
+                  </div>
                 </td>
-                <td className="text-sm px-4 py-1" style={{ width: "120px" }}>
-                  {laptop.ScreenResolution}
-                </td>
-                <td className="text-sm px-4 py-1" style={{ width: "120px" }}>
-                  {laptop.Cpu}
-                </td>
-                <td className="text-sm px-4 py-1" style={{ width: "120px" }}>
-                  {laptop.Ram}
-                </td>
-                <td className="text-sm px-4 py-1" style={{ width: "120px" }}>
-                  {laptop.Memory}
-                </td>
-                <td className="text-sm px-4 py-1" style={{ width: "120px" }}>
-                  {laptop.Gpu}
-                </td>
-                <td className="text-sm px-4 py-1" style={{ width: "120px" }}>
-                  {laptop.OpSys}
-                </td>
-                <td className="text-sm px-4 py-1" style={{ width: "120px" }}>
-                  {laptop.Weight}
-                </td>
+
                 <td className="text-sm px-4 py-1" style={{ width: "120px" }}>
                   {laptop.Price_in_euros}
+                </td>
+                <td className="  px-4 py-1" style={{ width: "200px" }}>
+                  <div className="flex justify-center items-center  h-fit ">
+                    <EditButton />
+                    <DeleteButton id={laptop.laptop_ID} />
+                  </div>
                 </td>
               </tr>
             ))}

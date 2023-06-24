@@ -2,14 +2,12 @@ import { ChangeEvent, useEffect, useState } from "react";
 import SelectMenu from "../../atoms/selectMenu/SelectMenu";
 import AdvanceSearchBar from "../../molecules/AdvanceSearchBar/AdvanceSearchBar";
 import SearchBox from "../../atoms/searchBox/SearchBox";
-import DataTable from "../../molecules/dataTable/DataTable";
 import DropButton from "../../atoms/dropButton/DropButton";
 import laptopStore from "../../../store";
 import DataLoadButton from "../../atoms/dataLoadButton/DataLoadButton";
+import DataTableCopy from "../../molecules/dataTable/DataTable";
 
 export default function LaptopDataAnalysingTable() {
-  const [laptopData, setLaptopData] = useState<any[]>([]);
-
   const [searchValue, setSearchValue] = useState<any>("");
   const [selectedOption, setSelectedOption] = useState<Number>(1);
   const [isOpen, setIsOpen] = useState<boolean>(false);
@@ -17,9 +15,10 @@ export default function LaptopDataAnalysingTable() {
   const rawData = laptopStore((state) => state.rawData);
   const addBrands = laptopStore((state) => state.addBrands);
   const clearBrandData = laptopStore((state) => state.clearBrandData);
+  const setTableData = laptopStore((state) => state.setTableData);
+  const isDataLoaded = laptopStore((state) => state.isDataLoaded);
 
   useEffect(() => {
-    setLaptopData(rawData);
     const uniqueBrands = [
       ...new Set(rawData.map((product: any) => product.Company)),
     ];
@@ -56,7 +55,7 @@ export default function LaptopDataAnalysingTable() {
     const newData = rawData.filter((laptop: any) => {
       return laptop[option]?.toLowerCase()?.includes(searchValue.toLowerCase());
     });
-    setLaptopData(newData);
+    setTableData(newData);
   };
 
   return (
@@ -82,26 +81,16 @@ export default function LaptopDataAnalysingTable() {
               <DataLoadButton />
             </div>
           </div>
-          {/*
-            <div className="flex text-4xl font-semibold mt-3 text-gray-700 mr-4">
-              Laptop Data List
-            </div>
-  */}
         </div>
         {isOpen && (
-          <AdvanceSearchBar
-            initialData={rawData}
-            laptopData={laptopData}
-            setLaptopData={setLaptopData}
-            trigger={trigger}
-            setTrigger={setTrigger}
-          />
+          <AdvanceSearchBar trigger={trigger} setTrigger={setTrigger} />
         )}
       </div>
-
-      <div className="col-start-1 col-span-6 ">
-        <DataTable key={trigger} laptopData={laptopData} />
-      </div>
+      {isDataLoaded && (
+        <div className="col-start-1 col-span-6 ">
+          <DataTableCopy key={trigger} />
+        </div>
+      )}
     </div>
   );
 }

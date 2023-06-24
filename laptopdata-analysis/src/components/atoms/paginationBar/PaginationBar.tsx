@@ -1,35 +1,39 @@
 import { useState, useEffect } from "react";
+import laptopStore from "../../../store";
 
 export default function PaginationBar(props: any) {
+  const tableData = laptopStore((state) => state.tableData);
+
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [updateRecords, setUpdateRecords] = useState<any>([]);
   const recordPerPage: number = 100;
   const lastIndex: number = currentPage * recordPerPage;
   const firstIndex: number = lastIndex - recordPerPage;
-  const records: any = props.data.slice(firstIndex, lastIndex);
-  const nPage: number = Math.ceil(props.data.length / recordPerPage);
+
+  const records: any = tableData.slice(firstIndex, lastIndex);
+  const nPage: number = Math.ceil(tableData.length / recordPerPage);
   const numbers: any = [...Array(nPage + 1).keys()].slice(1);
 
   useEffect(() => {
     props.setRecords(records);
-  }, [props.data, updateRecords]);
+  }, [props.data, updateRecords, tableData]);
 
   const prePage = () => {
     if (currentPage !== firstIndex) {
       setCurrentPage(currentPage - 1);
-      setUpdateRecords(props.data.slice(firstIndex, lastIndex));
+      setUpdateRecords(tableData.slice(firstIndex, lastIndex));
     }
   };
 
   const changeCurrentPage = (id: any) => {
     setCurrentPage(id);
-    setUpdateRecords(props.data.slice(firstIndex, lastIndex));
+    setUpdateRecords(tableData.slice(firstIndex, lastIndex));
   };
 
   const nextPage = () => {
     if (currentPage !== lastIndex) {
       setCurrentPage(currentPage + 1);
-      setUpdateRecords(props.data.slice(firstIndex, lastIndex));
+      setUpdateRecords(tableData.slice(firstIndex, lastIndex));
     }
   };
   return (
