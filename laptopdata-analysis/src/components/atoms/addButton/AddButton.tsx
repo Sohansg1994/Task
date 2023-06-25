@@ -1,8 +1,7 @@
 import { useState } from "react";
 import { MdOutlineAddCircle } from "react-icons/md";
 import AddModel from "../../molecules/addModel/AddModel";
-
-import ItemAddForm from "../../molecules/ItemAddForm/ItemAddForm";
+import ItemAddForm from "../../organisms/ItemAddForm/ItemAddForm";
 
 export default function AddButton() {
   const [open, setOpen] = useState<boolean>(false);

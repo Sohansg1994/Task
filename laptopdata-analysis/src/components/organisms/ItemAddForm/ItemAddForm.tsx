@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
-import FormLabelInput from "../formLabelInput/FormLabelInput";
 import laptopStore from "../../../store";
-import FormLabelNumberInput from "../formLabelNumberInput/FormLabelNumberInput";
+import FormLabelInput from "../../molecules/formLabelInput/FormLabelInput";
+import FormLabelNumberInput from "../../molecules/formLabelNumberInput/FormLabelNumberInput";
 
 export default function ItemAddForm(props: any) {
   const onClose = props.onClose;

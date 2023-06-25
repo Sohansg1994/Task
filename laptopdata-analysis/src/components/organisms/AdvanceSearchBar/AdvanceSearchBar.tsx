@@ -1,4 +1,4 @@
-import { useEffect, useState, ChangeEvent } from "react";
+import { useState, ChangeEvent } from "react";
 import BrandSelectionMenu from "../../atoms/brandSelectionMenu/BrandSelectionMenu";
 import SearchButton from "../../atoms/SearchButton/SearchButton";
 import SortingButton from "../../atoms/sortingButton/SortingButton";
@@ -9,15 +9,14 @@ export default function AdvanceSearchBar() {
   const [selectedOption, setSelectedOption] = useState<string>("");
   const [minPrice, setMinPrice] = useState<number>(0);
   const [maxPrice, setMaxPrice] = useState<number>(0);
-  const [isAscending, setIsAscending] = useState<boolean>(true);
+  const isAscendingOrder = laptopStore((state) => state.isAscendingOrder);
   const rawData = laptopStore((state) => state.rawData);
   const setTableData = laptopStore((state) => state.setTableData);
   const tableData = laptopStore((state) => state.tableData);
   const setIsDataEdited = laptopStore((state) => state.setIsDataEdited);
   const isDataEdited = laptopStore((state) => state.isDataEdited);
-
-  useEffect(() => {}, [isAscending]);
-
+  const setAscendingOrder = laptopStore((state) => state.setAscendingOrder);
+  const setDescendingOrder = laptopStore((state) => state.setDescendingOrder);
   const handleMinValueChange = (event: ChangeEvent<HTMLInputElement>) => {
     const minValue = parseFloat(event.target.value);
     setMinPrice(minValue);
@@ -55,7 +54,7 @@ export default function AdvanceSearchBar() {
   };
 
   const handleSortData = () => {
-    if (isAscending) {
+    if (!isAscendingOrder) {
       const newData = tableData.sort((a: any, b: any) => {
         let laptopPriceA = parseInt(a.Price_in_euros);
         let laptopPriceB = parseInt(b.Price_in_euros);
@@ -68,11 +67,9 @@ export default function AdvanceSearchBar() {
           return 0;
         }
       });
-
+      setAscendingOrder();
       setTableData(newData);
       setIsDataEdited(isDataEdited);
-
-      setIsAscending(!isAscending);
     } else {
       const newData = tableData.sort((a: any, b: any) => {
         let laptopPriceA = parseInt(a.Price_in_euros);
@@ -86,17 +83,15 @@ export default function AdvanceSearchBar() {
           return 0;
         }
       });
-
+      setDescendingOrder();
       setTableData(newData);
       setIsDataEdited(isDataEdited);
-
-      setIsAscending(!isAscending);
     }
   };
 
   return (
-    <div className="flex justify-between shadow-lg  bg-gray-50 border-t dark:bg-gray-800 dark:border-gray-700 mt-3  px-4 pt-3 pb-5 sm:rounded-lg ">
-      <div className="flex justify-start gap-x-5">
+    <div className="border-2 flex justify-between shadow-lg  bg-gray-50 border-t dark:bg-gray-800 dark:border-gray-700 mt-3  px-4 pt-3 pb-5 sm:rounded-lg ">
+      <div className="flex justify-between w-2/3 ">
         <div className="flex flex-col  w-fit ">
           <div className="flex font-sans font-medium ml-1">Price Range</div>
           <div className="flex gap-x-2">
@@ -119,14 +114,10 @@ export default function AdvanceSearchBar() {
         </div>
         <div className="flex items-end w-fit">
           <div>
-            <SortingButton
-              handleClick={handleSortData}
-              isAscending={isAscending}
-            />
+            <SortingButton handleClick={handleSortData} />
           </div>
         </div>
       </div>
-      <div className="flex items-end w-fit"></div>
     </div>
   );
 }

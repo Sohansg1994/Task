@@ -8,6 +8,7 @@ interface LaptopState {
   brands: string[];
   isDataLoaded: boolean;
   isDataEdited: boolean;
+  isAscendingOrder: boolean;
 
   addLaptop: (laptop: any) => void;
   addLaptops: (laptops: any[]) => void;
@@ -19,6 +20,8 @@ interface LaptopState {
   clearBrandData: () => void;
   setIsDataLoaded: (argument: boolean) => void;
   setIsDataEdited: (isDataEdited: boolean) => void;
+  setAscendingOrder: () => void;
+  setDescendingOrder: () => void;
 }
 
 const laptopStore = create<LaptopState>()(
@@ -29,7 +32,7 @@ const laptopStore = create<LaptopState>()(
     brands: ["Any"],
     isDataLoaded: false,
     isDataEdited: false,
-
+    isAscendingOrder: false,
     addLaptop: (laptop) =>
       set((state) => ({ rawData: [...state.rawData, laptop] })),
     addLaptops: (laptops) =>
@@ -54,6 +57,14 @@ const laptopStore = create<LaptopState>()(
     },
     setIsDataEdited: (isDataEdited) => {
       set({ isDataEdited: !isDataEdited });
+    },
+
+    setAscendingOrder: () => {
+      set({ isAscendingOrder: true });
+    },
+
+    setDescendingOrder: () => {
+      set({ isAscendingOrder: false });
     },
   }))
 );

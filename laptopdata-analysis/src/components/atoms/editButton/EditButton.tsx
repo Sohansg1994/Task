@@ -1,7 +1,7 @@
 import { useState } from "react";
 
 import AddModel from "../../molecules/addModel/AddModel";
-import EditForm from "../../molecules/editForm/EditForm";
+import EditForm from "../../organisms/editForm/EditForm";
 import laptopStore from "../../../store";
 
 export default function EditButton(props: any) {

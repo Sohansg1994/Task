@@ -1,4 +1,4 @@
-import LaptopDataAnalysingTable from "../../organisms/Table/LaptopDataAnalysingTable";
+import LaptopDataAnalysingTable from "../Table/LaptopDataAnalysingTable";
 
 function LaptopDataAnalysisLayout() {
   return (

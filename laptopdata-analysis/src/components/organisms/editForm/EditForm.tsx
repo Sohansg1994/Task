@@ -1,6 +1,6 @@
-import FormLabelInput from "../formLabelInput/FormLabelInput";
+import FormLabelInput from "../../molecules/formLabelInput/FormLabelInput";
 import laptopStore from "../../../store";
-import FormLabelNumberInput from "../formLabelNumberInput/FormLabelNumberInput";
+import FormLabelNumberInput from "../../molecules/formLabelNumberInput/FormLabelNumberInput";
 import { useState } from "react";
 
 export default function EditForm(props: any) {
