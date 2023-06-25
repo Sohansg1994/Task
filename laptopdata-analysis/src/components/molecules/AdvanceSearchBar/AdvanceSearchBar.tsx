@@ -91,35 +91,38 @@ export default function AdvanceSearchBar(props: any) {
   };
 
   return (
-    <div className="flex justify-start gap-x-5 shadow-lg  bg-gray-50 border-t dark:bg-gray-800 dark:border-gray-700 mt-3  px-4 pt-3 pb-5 sm:rounded-lg ">
-      <div className="flex flex-col  w-fit ">
-        <div className="flex font-sans font-medium ml-1">Price Range</div>
-        <div className="flex gap-x-2">
-          <PriceBox placeholder={"Min"} onChange={handleMinValueChange} />
-          <PriceBox placeholder={"Max"} onChange={handleMaxValueChange} />
+    <div className="flex justify-between shadow-lg  bg-gray-50 border-t dark:bg-gray-800 dark:border-gray-700 mt-3  px-4 pt-3 pb-5 sm:rounded-lg ">
+      <div className="flex justify-start gap-x-5">
+        <div className="flex flex-col  w-fit ">
+          <div className="flex font-sans font-medium ml-1">Price Range</div>
+          <div className="flex gap-x-2">
+            <PriceBox placeholder={"Min"} onChange={handleMinValueChange} />
+            <PriceBox placeholder={"Max"} onChange={handleMaxValueChange} />
+          </div>
         </div>
-      </div>
 
-      <div className="flex flex-col  w-fit">
-        <div className="flex font-sans font-medium ml-3">Brand</div>
-        <div>
-          <BrandSelectionMenu setSelectedOption={setSelectedOption} />
+        <div className="flex flex-col  w-fit">
+          <div className="flex font-sans font-medium ml-3">Brand</div>
+          <div>
+            <BrandSelectionMenu setSelectedOption={setSelectedOption} />
+          </div>
         </div>
-      </div>
 
-      <div className="flex items-end  w-fit">
-        <div>
-          <SearchButton handleClick={handleClick} />
+        <div className="flex items-end  w-fit">
+          <div>
+            <SearchButton handleClick={handleClick} />
+          </div>
+        </div>
+        <div className="flex items-end w-fit">
+          <div>
+            <SortingButton
+              handleClick={handleSortData}
+              isAscending={isAscending}
+            />
+          </div>
         </div>
       </div>
-      <div className="flex items-end w-fit">
-        <div>
-          <SortingButton
-            handleClick={handleSortData}
-            isAscending={isAscending}
-          />
-        </div>
-      </div>
+      <div className="flex items-end w-fit"></div>
     </div>
   );
 }

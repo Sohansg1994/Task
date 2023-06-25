@@ -3,6 +3,7 @@ import PaginationBar from "../../atoms/paginationBar/PaginationBar";
 import DeleteButton from "../../atoms/deleteButton/DeleteButton";
 import EditButton from "../../atoms/editButton/EditButton";
 import laptopStore from "../../../store";
+import AddButton from "../../atoms/addButton/AddButton";
 
 const headersNames = [
   "ID",
@@ -22,8 +23,9 @@ function DataTable(props: any) {
   return (
     <>
       <div className="relative overflow-x-auto shadow-2xl sm:rounded-lg ">
-        <div className="py-4 flex justify-end ">
+        <div className="py-4 flex justify-between items-center pl-3 pr-3 ">
           <PaginationBar setRecords={setRecords} />
+          <AddButton />
         </div>
         <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400 pl-5 ">
           <thead className="text-xs text-gray-700 uppercase bg-gray-100 dark:bg-gray-700 dark:text-gray-400 ">
