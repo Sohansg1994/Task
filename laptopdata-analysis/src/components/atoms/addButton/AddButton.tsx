@@ -1,10 +1,10 @@
 import { useState } from "react";
 import { MdOutlineAddCircle } from "react-icons/md";
 import AddModel from "../../molecules/addModel/AddModel";
-import laptopStore from "../../../store";
+
+import ItemAddForm from "../../molecules/ItemAddForm/ItemAddForm";
 
 export default function AddButton() {
-  const rawData = laptopStore((state) => state.rawData);
   const [open, setOpen] = useState<boolean>(false);
 
   return (
@@ -20,7 +20,9 @@ export default function AddButton() {
         <span className="flex ml-2"> ADD ITEM</span>
       </button>
 
-      <AddModel open={open} onClose={() => setOpen(false)} />
+      <AddModel open={open} onClose={() => setOpen(false)}>
+        <ItemAddForm onClose={() => setOpen(false)} open={open} key={open} />
+      </AddModel>
     </div>
   );
 }

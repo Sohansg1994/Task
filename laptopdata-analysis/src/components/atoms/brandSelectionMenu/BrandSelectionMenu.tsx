@@ -12,6 +12,7 @@ export default function BrandSelectionMenu(props: any) {
   const brands = laptopStore((state) => state.brands);
   useEffect(() => {
     props.setSelectedOption(selected);
+    console.log("brandSelection");
   }, [selected]);
 
   return (

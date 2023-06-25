@@ -5,7 +5,7 @@ import SortingButton from "../../atoms/sortingButton/SortingButton";
 import PriceBox from "../../atoms/priceBox/PriceBox";
 import laptopStore from "../../../store";
 
-export default function AdvanceSearchBar(props: any) {
+export default function AdvanceSearchBar() {
   const [selectedOption, setSelectedOption] = useState<string>("");
   const [minPrice, setMinPrice] = useState<number>(0);
   const [maxPrice, setMaxPrice] = useState<number>(0);
@@ -13,6 +13,8 @@ export default function AdvanceSearchBar(props: any) {
   const rawData = laptopStore((state) => state.rawData);
   const setTableData = laptopStore((state) => state.setTableData);
   const tableData = laptopStore((state) => state.tableData);
+  const setIsDataEdited = laptopStore((state) => state.setIsDataEdited);
+  const isDataEdited = laptopStore((state) => state.isDataEdited);
 
   useEffect(() => {}, [isAscending]);
 
@@ -68,7 +70,8 @@ export default function AdvanceSearchBar(props: any) {
       });
 
       setTableData(newData);
-      props.setTrigger(!props.trigger);
+      setIsDataEdited(isDataEdited);
+
       setIsAscending(!isAscending);
     } else {
       const newData = tableData.sort((a: any, b: any) => {
@@ -85,7 +88,8 @@ export default function AdvanceSearchBar(props: any) {
       });
 
       setTableData(newData);
-      props.setTrigger(!props.trigger);
+      setIsDataEdited(isDataEdited);
+
       setIsAscending(!isAscending);
     }
   };

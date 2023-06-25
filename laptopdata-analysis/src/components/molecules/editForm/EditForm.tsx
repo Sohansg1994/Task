@@ -1,34 +1,46 @@
-import { useState, useEffect } from "react";
 import FormLabelInput from "../formLabelInput/FormLabelInput";
 import laptopStore from "../../../store";
 import FormLabelNumberInput from "../formLabelNumberInput/FormLabelNumberInput";
+import { useState } from "react";
 
-export default function ItemAddForm(props: any) {
+export default function EditForm(props: any) {
+  const id = props.laptopData.laptop_ID;
   const onClose = props.onClose;
-  const open = props.open;
   const rawData = laptopStore((state) => state.rawData);
-  const addLaptop = laptopStore((state) => state.addLaptop);
-  const setTableData = laptopStore((state) => state.setTableData);
-  const [isAddData, setIsAddData] = useState<boolean>(false);
-  const [brand, setBrand] = useState<string>("");
-  const [product, setProduct] = useState<string>("");
-  const [type, setType] = useState<string>("");
-  const [screenSize, setScreenSize] = useState<number>();
-  const [screenResolution, setScreenResolution] = useState<string>("");
-  const [processor, setProcessor] = useState<string>("");
-  const [memory, setMemory] = useState<number>();
-  const [graphics, setGraphics] = useState<string>("");
-  const [internalStorage, setInternalStorage] = useState<string>("");
-  const [operatingSystem, setOperatingSystem] = useState<string>("");
-  const [weight, setWeight] = useState<number>();
-  const [price, setPrice] = useState<number>();
+  const tableData = laptopStore((state) => state.tableData);
+  const setIsDataEdited = laptopStore((state) => state.setIsDataEdited);
+  const isDataEdited = laptopStore((state) => state.isDataEdited);
 
-  const lastLaptopId: number =
-    parseInt(rawData[rawData.length - 1].laptop_ID) + 1;
+  const [brand, setBrand] = useState<string>(props.laptopData.Company);
+  const [product, setProduct] = useState<string>(props.laptopData.Product);
+  const [type, setType] = useState<string>(props.laptopData.TypeName);
+  const [screenSize, setScreenSize] = useState<number>(
+    parseFloat(props.laptopData.Inches)
+  );
+  const [screenResolution, setScreenResolution] = useState<string>(
+    props.laptopData.ScreenResolution
+  );
+  const [processor, setProcessor] = useState<string>(props.laptopData.Cpu);
+  const [memory, setMemory] = useState<number>(
+    parseFloat(props.laptopData.Ram)
+  );
+  const [graphics, setGraphics] = useState<string>(props.laptopData.Gpu);
+  const [internalStorage, setInternalStorage] = useState<string>(
+    props.laptopData.Memory
+  );
+  const [operatingSystem, setOperatingSystem] = useState<string>(
+    props.laptopData.OpSys
+  );
+  const [weight, setWeight] = useState<number>(
+    parseFloat(props.laptopData.Weight)
+  );
+  const [price, setPrice] = useState<number>(
+    parseFloat(props.laptopData.Price_in_euros)
+  );
 
-  const handleAdd = () => {
+  const handleEdit = () => {
     const laptop: any = {
-      laptop_ID: `${lastLaptopId}`,
+      laptop_ID: `${id}`,
       Company: brand,
       Product: product,
       TypeName: type,
@@ -43,58 +55,15 @@ export default function ItemAddForm(props: any) {
       Price_in_euros: `${price}`,
     };
 
-    let hasZeroLengthElement = false; // use to check whether item empty or non-validate
-
-    for (const key in laptop) {
-      if (
-        key === "Inches" ||
-        key === "Ram" ||
-        key === "Weight" ||
-        key === "Price_in_euros"
-      ) {
-        switch (key) {
-          case "Inches":
-            if (screenSize === undefined || `${screenSize}`.length === 0) {
-              hasZeroLengthElement = true;
-            }
-            break;
-          case "Ram":
-            if (memory === undefined || `${memory}`.length === 0) {
-              hasZeroLengthElement = true;
-            }
-            break;
-          case "Weight":
-            if (weight === undefined || `${weight}`.length === 0) {
-              hasZeroLengthElement = true;
-            }
-            break;
-          case "Price_in_euros":
-            if (price === undefined || `${price}`.length === 0) {
-              hasZeroLengthElement = true;
-            }
-            break;
-
-          default:
-            break;
-        }
-      } else {
-        if (laptop[key].length === 0) {
-          hasZeroLengthElement = true;
-          break;
-        }
-      }
-    }
-
-    if (!hasZeroLengthElement) {
-      addLaptop(laptop);
-      setIsAddData(true);
-      onClose();
-    }
+    const indexRawData = rawData.findIndex((laptop) => laptop.laptop_ID === id);
+    const indexTableData = tableData.findIndex(
+      (laptop) => laptop.laptop_ID === id
+    );
+    rawData[indexRawData] = laptop;
+    tableData[indexTableData] = laptop;
+    setIsDataEdited(isDataEdited);
+    onClose();
   };
-
-  useEffect(() => {
-    setTableData(rawData); //use Trigger to update tableData when add a item to raw data
-  }, [isAddData]);
 
   return (
     <div>
@@ -107,7 +76,7 @@ export default function ItemAddForm(props: any) {
                 value={brand}
                 onChange={(e: any) => setBrand(e.target.value)}
                 id={"brand"}
-                placeholder={"Hp"}
+                placeholder={""}
                 required={true}
                 label={"Brand"}
               />
@@ -117,7 +86,7 @@ export default function ItemAddForm(props: any) {
                 value={product}
                 onChange={(e: any) => setProduct(e.target.value)}
                 id={"product"}
-                placeholder={"envy"}
+                placeholder={""}
                 required={true}
                 label={"Product"}
               />
@@ -126,7 +95,7 @@ export default function ItemAddForm(props: any) {
               value={type}
               onChange={(e: any) => setType(e.target.value)}
               id={"type"}
-              placeholder={"NoteBook"}
+              placeholder={""}
               required={true}
               label={"Type"}
             />
@@ -137,7 +106,7 @@ export default function ItemAddForm(props: any) {
                 symbol={"€"}
                 setValue={setPrice}
                 id={"price"}
-                placeholder={"1200"}
+                placeholder={""}
                 required={true}
                 label={"Price"}
               />
@@ -156,7 +125,7 @@ export default function ItemAddForm(props: any) {
                   symbol={"in"}
                   setValue={setScreenSize}
                   id={"screen_size"}
-                  placeholder={"15.6"}
+                  placeholder={""}
                   required={true}
                   label={"Screen Size"}
                 />
@@ -166,7 +135,7 @@ export default function ItemAddForm(props: any) {
                   value={screenResolution}
                   onChange={(e: any) => setScreenResolution(e.target.value)}
                   id={"screen_resolution"}
-                  placeholder={"Full HD 1920x1080"}
+                  placeholder={""}
                   required={true}
                   label={"Screen Resolution"}
                 />
@@ -176,7 +145,7 @@ export default function ItemAddForm(props: any) {
                   value={graphics}
                   onChange={(e: any) => setGraphics(e.target.value)}
                   id={"graphics"}
-                  placeholder={"Nvidia GeForce 930MX"}
+                  placeholder={""}
                   required={true}
                   label={"Graphics"}
                 />
@@ -186,7 +155,7 @@ export default function ItemAddForm(props: any) {
                   value={processor}
                   onChange={(e: any) => setProcessor(e.target.value)}
                   id={"processor"}
-                  placeholder={"Intel Core i7 8550U 1.8GHz"}
+                  placeholder={""}
                   required={true}
                   label={"Processor"}
                 />
@@ -197,7 +166,7 @@ export default function ItemAddForm(props: any) {
                   symbol={"GB"}
                   setValue={setMemory}
                   id={"memory"}
-                  placeholder={"8"}
+                  placeholder={""}
                   required={true}
                   label={"Memory"}
                 />
@@ -207,7 +176,7 @@ export default function ItemAddForm(props: any) {
                   value={internalStorage}
                   onChange={(e: any) => setInternalStorage(e.target.value)}
                   id={"internal_storage"}
-                  placeholder={"256GB SSD"}
+                  placeholder={""}
                   required={true}
                   label={"Internal Storage"}
                 />
@@ -217,7 +186,7 @@ export default function ItemAddForm(props: any) {
                   value={operatingSystem}
                   onChange={(e: any) => setOperatingSystem(e.target.value)}
                   id={"operating_system"}
-                  placeholder={"Windows 10"}
+                  placeholder={""}
                   required={true}
                   label={"Operating System"}
                 />
@@ -228,7 +197,7 @@ export default function ItemAddForm(props: any) {
                   symbol={"kg"}
                   setValue={setWeight}
                   id={"weight"}
-                  placeholder={"1.38"}
+                  placeholder={""}
                   required={true}
                   label={"Weight"}
                 />
@@ -238,10 +207,10 @@ export default function ItemAddForm(props: any) {
         </div>
         <div>
           <button
-            onClick={handleAdd}
+            onClick={handleEdit}
             className="text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm px-4 py-2 text-center inline-flex items-center mr-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800 mt-2"
           >
-            ADD ITEM
+            EDIT ITEM
           </button>
         </div>
       </form>

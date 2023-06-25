@@ -1,9 +1,10 @@
 import XMarkCloseButton from "../../atoms/xMarkCloseButton/XMarkCloseButton";
-import ItemAddForm from "../ItemAddForm/ItemAddForm";
 
 export default function AddModel(props: any) {
   const open = props.open;
   const onClose = props.onClose;
+  const children = props.children;
+
   return (
     <div
       onClick={onClose}
@@ -18,10 +19,7 @@ export default function AddModel(props: any) {
         }`}
       >
         <XMarkCloseButton onClick={onClose} />
-
-        <div>
-          <ItemAddForm onClose={onClose} open={open} key={open} />
-        </div>
+        {children}
       </div>
     </div>
   );

@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import PaginationBar from "../../atoms/paginationBar/PaginationBar";
 import DeleteButton from "../../atoms/deleteButton/DeleteButton";
 import EditButton from "../../atoms/editButton/EditButton";
@@ -15,16 +15,15 @@ const headersNames = [
   "Action",
 ];
 
-function DataTable(props: any) {
+function DataTable() {
+  const isDataEdited = laptopStore((state) => state.isDataEdited);
   const [records, setRecords] = useState<any>([]);
-
-  useEffect(() => {}, [props.trigger]);
 
   return (
     <>
       <div className="relative overflow-x-auto shadow-2xl sm:rounded-lg ">
         <div className="py-4 flex justify-between items-center pl-3 pr-3 ">
-          <PaginationBar setRecords={setRecords} />
+          <PaginationBar setRecords={setRecords} key={isDataEdited} />
           <AddButton />
         </div>
         <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400 pl-5 ">
@@ -159,7 +158,7 @@ function DataTable(props: any) {
                 </td>
                 <td className="  px-4 py-1" style={{ width: "200px" }}>
                   <div className="flex justify-center items-center  h-fit ">
-                    <EditButton />
+                    <EditButton id={laptop.laptop_ID} />
                     <DeleteButton id={laptop.laptop_ID} />
                   </div>
                 </td>

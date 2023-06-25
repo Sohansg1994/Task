@@ -5,13 +5,13 @@ import SearchBox from "../../atoms/searchBox/SearchBox";
 import DropButton from "../../atoms/dropButton/DropButton";
 import laptopStore from "../../../store";
 import DataLoadButton from "../../atoms/dataLoadButton/DataLoadButton";
-import DataTableCopy from "../../molecules/dataTable/DataTable";
+import DataTable from "../../molecules/dataTable/DataTable";
 
 export default function LaptopDataAnalysingTable() {
   const [searchValue, setSearchValue] = useState<any>("");
   const [selectedOption, setSelectedOption] = useState<Number>(1);
   const [isOpen, setIsOpen] = useState<boolean>(false);
-  const [trigger, setTrigger] = useState<boolean>(false);
+
   const rawData = laptopStore((state) => state.rawData);
   const addBrands = laptopStore((state) => state.addBrands);
   const clearBrandData = laptopStore((state) => state.clearBrandData);
@@ -82,13 +82,11 @@ export default function LaptopDataAnalysingTable() {
             </div>
           </div>
         </div>
-        {isOpen && (
-          <AdvanceSearchBar trigger={trigger} setTrigger={setTrigger} />
-        )}
+        {isOpen && <AdvanceSearchBar />}
       </div>
       {isDataLoaded && (
         <div className="col-start-1 col-span-6 ">
-          <DataTableCopy key={trigger} />
+          <DataTable />
         </div>
       )}
     </div>

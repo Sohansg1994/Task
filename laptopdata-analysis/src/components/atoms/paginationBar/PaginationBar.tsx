@@ -9,17 +9,16 @@ export default function PaginationBar(props: any) {
   const recordPerPage: number = 100;
   const lastIndex: number = currentPage * recordPerPage;
   const firstIndex: number = lastIndex - recordPerPage;
-
   const records: any = tableData.slice(firstIndex, lastIndex);
   const nPage: number = Math.ceil(tableData.length / recordPerPage);
   const numbers: any = [...Array(nPage + 1).keys()].slice(1);
 
   useEffect(() => {
     props.setRecords(records);
-  }, [props.data, updateRecords, tableData]);
+  }, [updateRecords, tableData]);
 
   const prePage = () => {
-    if (currentPage !== firstIndex) {
+    if (currentPage !== 1) {
       setCurrentPage(currentPage - 1);
       setUpdateRecords(tableData.slice(firstIndex, lastIndex));
     }
@@ -31,7 +30,7 @@ export default function PaginationBar(props: any) {
   };
 
   const nextPage = () => {
-    if (currentPage !== lastIndex) {
+    if (currentPage !== nPage) {
       setCurrentPage(currentPage + 1);
       setUpdateRecords(tableData.slice(firstIndex, lastIndex));
     }
@@ -68,7 +67,7 @@ export default function PaginationBar(props: any) {
             <a
               href="#"
               onClick={nextPage}
-              className="px-3 py-2 leading-tight text-gray-500 bg-white border border-gray-300 rounded-r-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
+              className={`px-3 py-2 leading-tight text-gray-500 bg-white border border-gray-300 rounded-r-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white`}
             >
               Next
             </a>

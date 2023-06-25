@@ -7,6 +7,8 @@ interface LaptopState {
   records: any[];
   brands: string[];
   isDataLoaded: boolean;
+  isDataEdited: boolean;
+
   addLaptop: (laptop: any) => void;
   addLaptops: (laptops: any[]) => void;
   setTableData: (laptops: any[]) => void;
@@ -16,6 +18,7 @@ interface LaptopState {
   clearData: () => void;
   clearBrandData: () => void;
   setIsDataLoaded: (argument: boolean) => void;
+  setIsDataEdited: (isDataEdited: boolean) => void;
 }
 
 const laptopStore = create<LaptopState>()(
@@ -25,6 +28,8 @@ const laptopStore = create<LaptopState>()(
     records: [],
     brands: ["Any"],
     isDataLoaded: false,
+    isDataEdited: false,
+
     addLaptop: (laptop) =>
       set((state) => ({ rawData: [...state.rawData, laptop] })),
     addLaptops: (laptops) =>
@@ -46,6 +51,9 @@ const laptopStore = create<LaptopState>()(
 
     setIsDataLoaded: (argument) => {
       set({ isDataLoaded: argument });
+    },
+    setIsDataEdited: (isDataEdited) => {
+      set({ isDataEdited: !isDataEdited });
     },
   }))
 );
