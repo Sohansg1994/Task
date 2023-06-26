@@ -81,7 +81,7 @@ export default function LaptopDataAnalysingTable() {
               <div className="mt-2 ml-3 mr-3">
                 <DropButton setIsOpen={setIsOpen} />
               </div>
-              <div className="mt-2  mb-2">
+              <div className="mt-2  mb-4">
                 <DataLoadButton />
               </div>
             </div>
