@@ -65,7 +65,7 @@ export default function LaptopDataAnalysingTable() {
       <div className="grid grid-cols-6 gap-4 w-5/6 ">
         <div className="col-start-1 col-span-6 border-2 border-gray-300 bg-white mt-3 mb-10 relative  shadow-md sm:rounded-lg">
           <div className="flex justify-between mt-3 ml-5">
-            <div className="flex mr-4">
+            <div className="flex mr-4 flex-wrap">
               <div className=" w-auto h-auto ">
                 <SelectMenu setSelected={setSelectedOption} />
               </div>
@@ -77,10 +77,10 @@ export default function LaptopDataAnalysingTable() {
                   onChange={handleSearchChange}
                 />
               </div>
-              <div className="mt-2 ml-3">
+              <div className="mt-2 ml-3 mr-3">
                 <DropButton setIsOpen={setIsOpen} />
               </div>
-              <div className="mt-2 ml-3">
+              <div className="mt-2  mb-2">
                 <DataLoadButton />
               </div>
             </div>

@@ -25,7 +25,7 @@ function DataTable() {
   return (
     <>
       <div className="relative overflow-x-auto shadow-2xl  ">
-        <div className="py-4 flex justify-between items-center px-5 flex-wrap gap-y-4">
+        <div className="py-4 flex justify-between items-center px-5 flex-wrap-reverse gap-y-4">
           <PaginationBar setRecords={setRecords} key={isDataEdited} />
           <AddButton />
         </div>
