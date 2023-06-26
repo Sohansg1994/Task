@@ -61,8 +61,8 @@ export default function LaptopDataAnalysingTable() {
   };
 
   return (
-    <div className="w-screen flex justify-center mt-10">
-      <div className="grid grid-cols-6 gap-4 w-4/5">
+    <div className="w-screen flex justify-center min-w-1350">
+      <div className="grid grid-cols-6 gap-4 w-5/6 ">
         <div className="col-start-1 col-span-6 border-2 border-gray-300 bg-white mt-3 mb-10 relative  shadow-md sm:rounded-lg">
           <div className="flex justify-between mt-3 ml-5">
             <div className="flex mr-4">
@@ -88,7 +88,7 @@ export default function LaptopDataAnalysingTable() {
           {isOpen && <AdvanceSearchBar />}
         </div>
         {isDataLoaded && (
-          <div className="col-start-1 col-span-6 ">
+          <div className="col-start-1 col-span-6  ">
             <DataTable />
           </div>
         )}

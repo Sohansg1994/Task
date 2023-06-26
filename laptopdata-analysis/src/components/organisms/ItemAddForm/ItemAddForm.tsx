@@ -5,7 +5,7 @@ import FormLabelNumberInput from "../../molecules/formLabelNumberInput/FormLabel
 
 export default function ItemAddForm(props: any) {
   const onClose = props.onClose;
-  const open = props.open;
+
   const rawData = laptopStore((state) => state.rawData);
   const addLaptop = laptopStore((state) => state.addLaptop);
   const setTableData = laptopStore((state) => state.setTableData);
@@ -101,7 +101,7 @@ export default function ItemAddForm(props: any) {
       <form>
         <div className="border-b-2 pb-3">
           <span className="flex pl-3  text-basic font-bold">BASIC DETAILS</span>
-          <div className="grid gap-5  md:grid-cols-2 p-3">
+          <div className="grid gap-5 grid-cols-2 p-3">
             <div>
               <FormLabelInput
                 value={brand}
@@ -146,10 +146,10 @@ export default function ItemAddForm(props: any) {
         </div>
         <div>
           <div>
-            <span className="flex pl-3 pt-3 text-basic font-bold">
+            <span className="flex pl-3 pt-3 text-basic font-bold ">
               FEATURES
             </span>
-            <div className="grid gap-5  md:grid-cols-2 p-3">
+            <div className="grid gap-5 grid-cols-2 p-3">
               <div>
                 <FormLabelNumberInput
                   value={screenSize}

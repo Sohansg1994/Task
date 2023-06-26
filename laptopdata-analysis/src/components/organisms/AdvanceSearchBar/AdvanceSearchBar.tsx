@@ -91,7 +91,7 @@ export default function AdvanceSearchBar() {
 
   return (
     <div className="border-2 flex justify-between shadow-lg  bg-gray-50 border-t dark:bg-gray-800 dark:border-gray-700 mt-3  px-4 pt-3 pb-5 sm:rounded-lg ">
-      <div className="flex justify-between w-2/3 ">
+      <div className="flex justify-between w-2/3 flex-wrap gap-y-4 ">
         <div className="flex flex-col  w-fit ">
           <div className="flex font-sans font-medium ml-1">Price Range</div>
           <div className="flex gap-x-2">

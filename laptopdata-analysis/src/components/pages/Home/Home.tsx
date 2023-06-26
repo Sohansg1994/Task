@@ -1,5 +1,4 @@
-import React from "react";
-import LaptopDataAnalysingTable from "../../templates/Table/LaptopDataAnalysingTable";
+import LaptopDataAnalysingTable from "../../templates/LaptopDataAnalysisTabel/LaptopDataAnalysingTable";
 
 export default function Home() {
   return (
