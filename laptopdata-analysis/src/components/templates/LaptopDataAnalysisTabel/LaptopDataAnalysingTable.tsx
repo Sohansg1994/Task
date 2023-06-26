@@ -11,6 +11,7 @@ export default function LaptopDataAnalysingTable() {
   const [searchValue, setSearchValue] = useState<any>("");
   const [selectedOption, setSelectedOption] = useState<Number>(1);
   const [isOpen, setIsOpen] = useState<boolean>(false);
+  const isDataEdited = laptopStore((state) => state.isDataEdited);
 
   const rawData = laptopStore((state) => state.rawData);
   const addBrands = laptopStore((state) => state.addBrands);
@@ -25,7 +26,7 @@ export default function LaptopDataAnalysingTable() {
     ];
     clearBrandData();
     addBrands(uniqueBrands);
-  }, [rawData]);
+  }, [rawData, isDataEdited]);
 
   useEffect(() => {
     handleFilter(searchValue, selectedOption);
