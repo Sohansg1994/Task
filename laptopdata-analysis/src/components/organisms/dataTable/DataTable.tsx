@@ -4,6 +4,7 @@ import DeleteButton from "../../atoms/deleteButton/DeleteButton";
 import EditButton from "../../atoms/editButton/EditButton";
 import laptopStore from "../../../store";
 import AddButton from "../../atoms/addButton/AddButton";
+import FeatureDisplayButton from "../../atoms/featureDisplayButton/FeatureDisplayButton";
 
 const headersNames = [
   "ID",
@@ -15,7 +16,8 @@ const headersNames = [
   "Action",
 ];
 
-const tdStyle1 = "text-sm px-4 py-1 whitespace-normal w-1/12 text-center ";
+const tdStyle1 =
+  "text-sm px-4 py-1 whitespace-normal w-1/12 text-center lg:py-4 ";
 const subThStyle = "font-bold mb-1";
 
 function DataTable() {
@@ -118,9 +120,14 @@ function DataTable() {
                   {laptop.Price_in_euros}
                 </td>
                 <td className="  px-3 py-1 w-2/12 text-center">
-                  <div className="flex justify-center items-center  h-fit ">
-                    <EditButton id={laptop.laptop_ID} />
-                    <DeleteButton id={laptop.laptop_ID} />
+                  <div className="flex">
+                    <div className="flex justify-end  items-center  h-fit w-9/12">
+                      <EditButton id={laptop.laptop_ID} />
+                      <DeleteButton id={laptop.laptop_ID} />
+                    </div>
+                    <div className="flex justify-end items-center  h-fit w-4/12">
+                      <FeatureDisplayButton id={laptop.laptop_ID} />
+                    </div>
                   </div>
                 </td>
               </tr>
