@@ -38,6 +38,7 @@ export default function EditForm(props: any) {
     parseFloat(props.laptopData.Price_in_euros)
   );
 
+  //Data Edit function
   const handleEdit = () => {
     const laptop: any = {
       laptop_ID: `${id}`,

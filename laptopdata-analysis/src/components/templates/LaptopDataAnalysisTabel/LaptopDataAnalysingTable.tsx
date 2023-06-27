@@ -12,7 +12,6 @@ export default function LaptopDataAnalysingTable() {
   const [selectedOption, setSelectedOption] = useState<Number>(1);
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const isDataEdited = laptopStore((state) => state.isDataEdited);
-
   const rawData = laptopStore((state) => state.rawData);
   const addBrands = laptopStore((state) => state.addBrands);
   const clearBrandData = laptopStore((state) => state.clearBrandData);
@@ -20,6 +19,7 @@ export default function LaptopDataAnalysingTable() {
   const isDataLoaded = laptopStore((state) => state.isDataLoaded);
   const setDescendingOrder = laptopStore((state) => state.setDescendingOrder);
 
+  // set brand list list
   useEffect(() => {
     const uniqueBrands = [
       ...new Set(rawData.map((product: any) => product.Company)),
@@ -28,16 +28,18 @@ export default function LaptopDataAnalysingTable() {
     addBrands(uniqueBrands);
   }, [rawData, isDataEdited]);
 
+  //functioning filtering data function
   useEffect(() => {
     handleFilter(searchValue, selectedOption);
     setDescendingOrder();
   }, [searchValue]);
 
+  //set search values
   const handleSearchChange = (event: ChangeEvent<HTMLInputElement>) => {
     setSearchValue(event.target.value);
-    console.log(event.target.value);
   };
 
+  //filtering data respect to selection
   const handleFilter = (searchValue: string, selectedOption: Number) => {
     let option = "Company";
     switch (selectedOption) {

@@ -26,6 +26,7 @@ export default function ItemAddForm(props: any) {
   const lastLaptopId: number =
     parseInt(rawData[rawData.length - 1].laptop_ID) + 1;
 
+  // Function for add new Item
   const handleAdd = () => {
     const laptop: any = {
       laptop_ID: `${lastLaptopId}`,
