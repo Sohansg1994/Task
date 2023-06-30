@@ -1,5 +1,5 @@
 import laptopStore from "../../../store";
-import * as csvtojson from "csvtojson";
+import csvtojson from "csvtojson";
 import { FaFileDownload } from "react-icons/fa";
 
 export default function DataLoadButton() {
