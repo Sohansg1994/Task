@@ -1,5 +1,4 @@
 import { useState } from "react";
-
 import AddModel from "../../molecules/addModel/AddModel";
 import EditForm from "../../organisms/editForm/EditForm";
 import laptopStore from "../../../store";
