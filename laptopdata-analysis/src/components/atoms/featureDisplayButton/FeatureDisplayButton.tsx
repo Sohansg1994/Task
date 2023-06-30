@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import AddModel from "../../molecules/addModel/AddModel";
 import laptopStore from "../../../store";
 const subThStyle = "font-bold mb-1";
