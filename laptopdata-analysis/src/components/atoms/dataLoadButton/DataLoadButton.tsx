@@ -8,8 +8,10 @@ export default function DataLoadButton() {
   const setIsDataLoaded = laptopStore((state) => state.setIsDataLoaded);
   const isDataLoaded = laptopStore((state) => state.isDataLoaded);
 
+  console.log();
+
   const fetchCSVData = async () => {
-    const response = await fetch("/src/data/laptop_prices.csv");
+    const response = await fetch("laptop_prices.csv");
     const csvData = await response.text();
     const jsonObj = await csvtojson().fromString(csvData);
     addLaptops(jsonObj);
