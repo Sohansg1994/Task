@@ -98,7 +98,7 @@ export default function ItemAddForm(props: any) {
   }, [isAddData]);
 
   return (
-    <div>
+    <div className="h-5/6">
       <form>
         <div className="border-b-2 pb-3">
           <span className="flex pl-3  text-basic font-bold">BASIC DETAILS</span>
